@@ -21,8 +21,8 @@ def main():
     ### challenge 3 ###
     tot = len(rev_missing_ref)
     print(' total size of the list of relevant but not tracked products : ', tot) 
-    ### challenge 4 ###
-    aisle_suggestion(retailer_extract,references) 
+#     ### challenge 4 ###
+#     aisle_suggestion(retailer_extract,references) 
     
     
 # challenge 1
