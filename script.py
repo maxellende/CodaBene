@@ -21,8 +21,8 @@ def main():
     ### challenge 3 ###
     tot = len(rev_missing_ref)
     print(' total size of the list of relevant but not tracked products : ', tot) 
-#     ### challenge 4 ###
-#     aisle_suggestion(retailer_extract,references) 
+    ### challenge 4 ###
+    aisle_suggestion(retailer_extract,references) 
     
     
 # challenge 1
@@ -44,19 +44,15 @@ def relevant_missing_ref(retailer_extract,references):
     df = df.loc[pd.isnull(df['Date déréf.'])] # It is not “dereferenced”
     
     
-    # for i in range(len(df)) : 
-    #     sub_fam = df['Libellé  Sous-Famille '].iloc[i]
-    #     ean = df.loc[df['Libellé  Sous-Famille ']==sub_fam]
-    #     if np.isin(ean,references['reference_id']).any() :  # The sub family is tracked in at least one aisle in the shop : there exists one product of this sub-family tracked in the shop
-    #         continue
-    #     else : 
-    #         df = df.drop(df.index[i]) 
+    for i in range(len(df)) : 
+        sub_fam = df['Libellé  Sous-Famille '].iloc[i]
+        ean = df.loc[df['Libellé  Sous-Famille ']==sub_fam]
+        if np.isin(ean,references['reference_id']).any() :  # The sub family is tracked in at least one aisle in the shop : there exists one product of this sub-family tracked in the shop
+            continue
+        else : 
+            df = df.drop(df.index[i]) 
             
-    h = pd.DataFrame() # hashtable
-    h['Code Groupe de Famille '] = df['Code Groupe de Famille ']
-    h['Code Famille '] = df['Code Famille ']
-    h['Code Sous-Famille '] = df['Code Sous-Famille ']
-    df = df.where(df['Code Sous-Famille '].isin(h['Code Sous-Famille ']))
+   
         
     print('list (EAN and Reference Name) of products which are not tracked by the app, but are relevant : \n',df['EAN'])
     return df['EAN']
