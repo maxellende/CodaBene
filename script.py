@@ -56,7 +56,6 @@ def relevant_missing_ref(retailer_extract,references):
     h['Code Groupe de Famille '] = df['Code Groupe de Famille ']
     h['Code Famille '] = df['Code Famille ']
     h['Code Sous-Famille '] = df['Code Sous-Famille ']
-    # print(h)
     df = df.where(df['Code Sous-Famille '].isin(h['Code Sous-Famille ']))
         
     print('list (EAN and Reference Name) of products which are not tracked by the app, but are relevant : \n',df['EAN'])
@@ -70,7 +69,7 @@ def relevant_missing_ref_total(retailer_extract,references):
     tot = len(missing_ref)
     print(' total size of the list of relevant but not tracked products : ', tot)
     
-# challenge 4
+# challenge 4 : my code is erroneous but I left it to show a suggestion
 def aisle_suggestion(retailer_extract,references) : 
     
     h = hashtable(retailer_extract,references)
@@ -86,15 +85,12 @@ def aisle_suggestion(retailer_extract,references) :
     m_h['Code Groupe de Famille '] = m_df['Code Groupe de Famille ']
     m_h['Code Famille '] = m_df['Code Famille ']
     m_h['Code Sous-Famille '] = m_df['Code Sous-Famille ']
-    print(m_h)
-    print(h)
     m_h['allee'] = h.iloc[np.isin(m_h['Code Groupe de Famille ', 'Code Famille ', 'Code Sous-Famille '],h['Code Groupe de Famille ', 'Code Famille ', 'Code Sous-Famille '])]['allee']
     print('suggestion of an aisle where the reference could be found : \n', m_h['reference', 'allee'])
     
 def hashtable(retailer_extract,references):
     df = retailer_extract.dropna(how = 'all')
     ean = df['EAN'].astype('float') # products in shop assortment
-
     known_ref = np.unique(references['reference_id'].str.replace(',','.').astype('float'))
     df = df.iloc[np.isin(ean, known_ref)] # products tracked
     h = pd.DataFrame() # hashtable
